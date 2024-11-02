@@ -23,3 +23,7 @@ Rhythmic Values: Used to build a rhythm-based Markov Chain.
 ## References
 
 Python Libraries: markovify (for Markov Chains), mido and midiutil (for MIDI processing), music21 (for music analysis).
+
+## Degree
+
+Bachelor's Programme in Science (computer science track)
