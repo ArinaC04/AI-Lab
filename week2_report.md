@@ -15,3 +15,5 @@
 
 **5. What next?**
    - Next, I’ll refine the Markov Chain model to support higher-order transitions for more varied and complex music generation. I also plan to improve the user interface, allowing users to save or play back generated sequences, and to add more detailed unit tests to cover additional cases. I’ll focus on learning more about efficient data structures, such as tries, which could help manage complex transitions better.
+
+Hours spent: around 7 I think?
