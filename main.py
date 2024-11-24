@@ -11,7 +11,7 @@
 # code quality
 
 import functions
-import user_interface
+import user_interface 
 
 input = ["C#3", "E3"]
 instrument = 48
