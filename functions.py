@@ -1,21 +1,36 @@
-from mido import MidiFile, MidiTrack, Message
 import random
 import os
-roots = {}
+from mido import MidiFile, MidiTrack, Message
+
 
 def note(midi_note):
-    notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-    octave = (midi_note // 12) - 2  
-    note_name = notes[midi_note % 12]
-    return f"{note_name}{octave}"
+    if midi_note<128 and midi_note>0:
+        notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+        octave = (midi_note // 12) - 2  
+        note_name = notes[midi_note % 12] 
+        return f"{note_name}{octave}"
+    else:
+        raise ValueError("Invalid MIDI number")
+    
 
 
 def midi(note):
     notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-    i=0
-    while notes[i]!=note[:-1]:
-        i+=1
-    return (int(note[-1])+2) * 12 + i
+    if isinstance(note, str):
+        i=0
+        if (len(note) == 2 or (len(note) == 3 and note[1] == '#')) and note[:-1] in notes:
+            while notes[i]!=note[:-1]:
+                i+=1
+            return (int(note[-1])+2) * 12 + i
+        elif len(note) in [3, 4] and note[:-2] in notes and note[2:] in ['10', '11', '#10', '#11']:
+            while notes[i]!=note[:-2]:
+                i+=1
+            return (int(note[-2:])+2) * 12 + i
+        else:
+            raise ValueError("Invalid note")
+    else:
+        raise ValueError("Invalid note")
+        
 
 
 def midi_to_pitch(file):
@@ -76,7 +91,7 @@ class Node:
             self.children[note2].add_child(note3)
 
 
-def get_prob():
+def get_prob(roots):
     for root in roots.values():
         for node2 in root.children:
             root.children[node2].probability = root.children[node2].freq/root.freq
@@ -84,7 +99,7 @@ def get_prob():
                 root.children[node2].children[node3].probability = root.children[node2].children[node3].freq/root.children[node2].freq
 
 
-def print_trie():
+def print_trie(roots):
     for root in roots.values():
         print(root.note)
         for node2 in root.children:
@@ -97,6 +112,7 @@ def print_trie():
 def create_trie():
     directory = 'MIDI'
     files = os.listdir(directory)
+    roots = {}
     for file in files:
         pitches, duration = midi_to_pitch("MIDI/"+file)
         for i in range(len(pitches)-2):
@@ -104,10 +120,11 @@ def create_trie():
                 roots[pitches[i]] = Node(pitches[i])
                 roots[pitches[i]].freq -= 1
             roots[pitches[i]].new_notes(pitches[i+1], pitches[i+2])
-        get_prob()
+        get_prob(roots)
+    return roots
 
 
-def generate(input, n):
+def generate(input, n, roots):
     melody = input.copy()
     for i in range(n):
         note1 = melody[i]

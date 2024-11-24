@@ -8,13 +8,15 @@
 
 # unit tests
 # test coverage
-# code quality
 
 import functions
 import user_interface 
 
-input = ["C#3", "E3"]
+
+
+
+input_notes = ["C#3", "E3"]
 instrument = 48
-functions.create_trie()
-melody = functions.generate(input, 50)
+roots = functions.create_trie()
+melody = functions.generate(input_notes, 50, roots)
 functions.pitch_to_midi(melody, instrument)
