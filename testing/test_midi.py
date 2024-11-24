@@ -19,5 +19,25 @@ class test_midi(unittest.TestCase):
             midi(input_data)
         self.assertEqual(str(context.exception), "Invalid note")
 
+    def test_case_4(self):
+        input_data = 'C*10'
+        with self.assertRaises(ValueError) as context:
+            midi(input_data)
+        self.assertEqual(str(context.exception), "Invalid note")
+
+    def test_case_5(self):
+        input_data = 'S5'
+        with self.assertRaises(ValueError) as context:
+            midi(input_data)
+        self.assertEqual(str(context.exception), "Invalid note")
+
+    def test_case_6(self):
+        input_data = 'C'
+        with self.assertRaises(ValueError) as context:
+            midi(input_data)
+        self.assertEqual(str(context.exception), "Invalid note")
+    
+    
+
 if __name__ == '__main__':
     unittest.main()
