@@ -18,6 +18,3 @@ class test_note(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             note(input_data)
         self.assertEqual(str(context.exception), "Invalid MIDI number")
-
-if __name__ == '__main__':
-    unittest.main()

@@ -36,8 +36,3 @@ class test_midi(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             midi(input_data)
         self.assertEqual(str(context.exception), "Invalid note")
-    
-    
-
-if __name__ == '__main__':
-    unittest.main()
