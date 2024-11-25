@@ -1,9 +1,9 @@
 import unittest
-from ..functions import note, midi, midi_to_pitch, pitch_to_midi, Node, get_prob, create_trie, generate
+from functions import midi
 
 class test_midi(unittest.TestCase):
     def test_case_1(self):
-        input_data = "C#"
+        input_data = "C#1"
         expected_result = 1
         self.assertEqual(midi(input_data), expected_result)
 

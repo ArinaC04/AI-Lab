@@ -4,9 +4,9 @@ from mido import MidiFile, MidiTrack, Message
 
 
 def note(midi_note):
-    if midi_note<128 and midi_note>0:
+    if isinstance(midi_note, int) and midi_note<128 and midi_note>0:
         notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-        octave = (midi_note // 12) - 2  
+        octave = (midi_note // 12) + 1  
         note_name = notes[midi_note % 12] 
         return f"{note_name}{octave}"
     else:
@@ -21,11 +21,11 @@ def midi(note):
         if (len(note) == 2 or (len(note) == 3 and note[1] == '#')) and note[:-1] in notes:
             while notes[i]!=note[:-1]:
                 i+=1
-            return (int(note[-1])+2) * 12 + i
+            return (int(note[-1])-1) * 12 + i
         elif len(note) in [3, 4] and note[:-2] in notes and note[2:] in ['10', '11', '#10', '#11']:
             while notes[i]!=note[:-2]:
                 i+=1
-            return (int(note[-2:])+2) * 12 + i
+            return (int(note[-2:])-1) * 12 + i
         else:
             raise ValueError("Invalid note")
     else:
@@ -34,27 +34,30 @@ def midi(note):
 
 
 def midi_to_pitch(file):
-    midi_file = MidiFile(file)
-    pitches = []
-    duration = []
-    midi_pitches = []
-    for track in midi_file.tracks:
-        for msg in track:
-            if msg.type == 'note_on':
-                pitches.append(note(msg.note))
-                midi_pitches.append(msg.note)
-            if msg.type == 'note_off':
-                duration.append(msg.time)
-    return pitches, duration
+    try:
+        midi_file = MidiFile(file)
+        pitches = []
+        duration = []
+        midi_pitches = []
+        for track in midi_file.tracks:
+            for msg in track:
+                if msg.type == 'note_on':
+                    pitches.append(note(msg.note))
+                    midi_pitches.append(msg.note)
+                if msg.type == 'note_off':
+                    duration.append(msg.time)
+        return pitches, duration
+    except (OSError, IOError):
+        raise ValueError("Not a MIDI file")
 
-def pitch_to_midi(pitches, instrument):
+def pitch_to_midi(pitches, duration, instrument):
     notes = []
     midi_file = MidiFile()
     track = MidiTrack()
     midi_file.tracks.append(track)
     track.append(Message('program_change', program=instrument))
     for i in range(len(pitches)):
-        notes.append((midi(pitches[i]), 300))
+        notes.append((midi(pitches[i]), duration[i]))
     for pitch, d in notes:
         track.append(Message('note_on', note=pitch, velocity=64, time=0)) 
         track.append(Message('note_off', note=pitch, velocity=64, time=d))  
