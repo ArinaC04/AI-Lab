@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "ai-lab"
+version = "0.1.0"
+description = ""
+authors = ["Arina <arinacoroliuc@gmail.com>"]
+package-mode = false
+
+
+[tool.poetry.dependencies]
+python = "^3.12"
+mido = "^1.3.3"
+
+[tool.poetry.group.dev.dependencies]
+coverage = "^7.6.8"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
