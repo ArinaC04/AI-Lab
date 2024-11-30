@@ -1,12 +1,18 @@
 What have you done this week?
 created the poetry project
+
 optimized the new_note function
+
 changed the algorithm for the program so that it takes the degree of the Markov chain as a parameter
+
 started work on the testing and implementation document
+
 added an end-to-end test for the code
 
 
+
 How has the project progressed?
+
 Now it is more complex, allows for any order of the markov chain
 
 What did you learn this week / today?
