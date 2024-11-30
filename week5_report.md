@@ -1,24 +1,47 @@
-***What have you done this week?***
-created the poetry project
-optimized the new_note function
-changed the algorithm for the program so that it takes the degree of the Markov chain as a parameter
-started work on the testing and implementation document
-added an end-to-end test for the code
+# **Weekly Progress Report**
 
-***How has the project progressed?***
+---
 
-Now it is more complex, allows for any order of the markov chain
+### **What Have You Done This Week?**
+- **Project Setup**: Created the Poetry project environment for managing dependencies.
+- **Function Optimization**: Enhanced the `new_note` function for better efficiency.
+- **Algorithm Improvement**: 
+  - Modified the program to accept the degree of the Markov chain as a configurable parameter, improving its flexibility.
+- **Documentation**: Began drafting the testing and implementation document.
+- **Testing**: 
+  - Added an end-to-end test to verify the entire workflow of the program.
 
-***What did you learn this week / today?***
+---
 
-C++ things for the peer review mainly :)
+### **How Has the Project Progressed?**
+- The program now supports higher complexity by allowing user-defined Markov chain orders.
+- Improved testability and functionality with the addition of end-to-end tests and algorithm flexibility.
 
-***What has been unclear or problematic?***
+---
 
-Honestly the peer review, because I do not understand java or typescript and with c++ I did competitive programming in a way, so it was quite new for me and hard as I did not understand everything. And also installing poetry turned out to be difficult.
+### **What Have You Learned This Week?**
+- **Peer review**:
+  - C++ things for the peer review mainly :)
+- **Technical Setup**:
+  - Learned troubleshooting techniques while addressing issues with installing Poetry.
 
-***What next?***
+---
 
-improving the user interface, adding duration to the generation
+### **What Has Been Unclear or Problematic?**
+- **Peer Review Challenges**:
+  - Honestly the peer review, because I do not understand java or typescript and with c++ I did competitive programming in a way, so it was quite new for me and hard as I did not understand everything. And also installing poetry turned out to be difficult.
+- **Poetry Installation**:
+  - Encountered unexpected challenges, which took additional time to resolve.
 
-Hours spent: around 5
+---
+
+### **What’s Next?**
+- **Interface Improvements**:
+  - Work on enhancing the user interface for better usability.
+- **Feature Development**:
+  - Add functionality to handle note durations during melody generation.
+
+---
+
+### **Time Spent**
+- **Hours**: Approximately 8 hours this week.
