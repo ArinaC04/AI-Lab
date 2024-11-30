@@ -11,8 +11,6 @@ def note(midi_note):
         return f"{note_name}{octave}"
     else:
         raise ValueError("Invalid MIDI number")
-    
-
 
 def midi(note):
     notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
@@ -30,8 +28,6 @@ def midi(note):
             raise ValueError("Invalid note")
     else:
         raise ValueError("Invalid note")
-        
-
 
 def midi_to_pitch(file):
     try:
@@ -63,8 +59,6 @@ def pitch_to_midi(pitches, duration, instrument):
         track.append(Message('note_off', note=pitch, velocity=64, time=d))  
 
     midi_file.save('output.mid')
-
-
 
 class Node:
     def __init__(self, note):
@@ -112,17 +106,17 @@ def print_trie(roots):
         print("\n \n")    
 
 
-def create_trie():
+def create_trie(degree):
     directory = 'MIDI'
     files = os.listdir(directory)
     roots = {}
     for file in files:
-        pitches, duration = midi_to_pitch("MIDI/"+file)
-        for i in range(len(pitches)-2):
+        pitches, duration = midi_to_pitch("MIDI/"+file)        
+        for i in range(len(pitches)-degree):
             if pitches[i] not in roots:
                 roots[pitches[i]] = Node(pitches[i])
                 roots[pitches[i]].freq -= 1
-            roots[pitches[i]].new_notes(pitches[i+1], pitches[i+2])
+            roots[pitches[i]].new_notes(pitches[i + 1: i + 1 + degree])
         get_prob(roots)
     return roots
 
