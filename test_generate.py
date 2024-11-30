@@ -6,8 +6,11 @@ class test_generate(unittest.TestCase):
         degree = 4
         roots, comp = create_trie(degree)
         melody = generate(["C4", "C5"], 50, roots, degree)
+        ok = True
         for i in range(len(melody)-degree):
-            self.assertTrue(melody[i: i + degree] in comp)
+            if melody[i: i + degree] not in comp:
+                ok = False
+        self.assertTrue(ok)
 
         
 
