@@ -71,64 +71,84 @@ class Node:
         self.children[note] = Node(note)
 
     
-    def new_notes(self, note2, note3):
+    def new_notes(self, notes):
         self.freq += 1
-        if note2 in self.children:
-            for child in self.children:
-                if child == note2:
-                    self.children[child].freq += 1
-                    if note3 in self.children[child].children:
-                        for child2 in self.children[child].children:
-                            if child2 == note3:
-                                self.children[child].children[child2].freq += 1
-                    else:
-                        self.children[child].add_child(note3)
-        else:
-            self.add_child(note2)
-            self.children[note2].add_child(note3)
+        path = self
+        for note in notes:
+            if note in path.children:
+                path.children[note].freq += 1
+            else:
+                path.add_child(note)
+            path = path.children[note]
+        
+def get_prob_recursive(path, degree, actual_degree):
+    if actual_degree == degree:
+        return 
+    for node in path.children:
+        path.children[node].probability = path.children[node].freq/path.freq
+        get_prob_recursive(path.children[node], degree, actual_degree + 1)
 
 
-def get_prob(roots):
+def get_prob(roots, degree):
     for root in roots.values():
-        for node2 in root.children:
-            root.children[node2].probability = root.children[node2].freq/root.freq
-            for node3 in root.children[node2].children:
-                root.children[node2].children[node3].probability = root.children[node2].children[node3].freq/root.children[node2].freq
+        path = root
+        get_prob_recursive(path, degree, 0)
 
+def print_trie_recursive(path, degree, actual_degree):
+    if actual_degree == degree:
+        return 
+    for node in path.children:
+        print("\t"*(actual_degree + 1), node, round(path.children[node].probability, 2))
+        print_trie_recursive(path.children[node], degree, actual_degree + 1)
 
-def print_trie(roots):
+def print_trie(roots, degree):
     for root in roots.values():
         print(root.note)
-        for node2 in root.children:
-            print("\t", node2, round(root.children[node2].probability, 2))
-            for node3 in root.children[node2].children:
-                print("\t\t", node3, round(root.children[node2].children[node3].probability, 2))
-        print("\n \n")    
+        path = root
+        print_trie_recursive(path, degree, 0)
+        print("\n \n")   
 
 
 def create_trie(degree):
     directory = 'MIDI'
     files = os.listdir(directory)
     roots = {}
+    comp = list()
     for file in files:
-        pitches, duration = midi_to_pitch("MIDI/"+file)        
+        pitches, duration = midi_to_pitch("MIDI/"+file) 
         for i in range(len(pitches)-degree):
             if pitches[i] not in roots:
                 roots[pitches[i]] = Node(pitches[i])
                 roots[pitches[i]].freq -= 1
-            roots[pitches[i]].new_notes(pitches[i + 1: i + 1 + degree])
-        get_prob(roots)
-    return roots
+            roots[pitches[i]].new_notes(pitches[i + 1: i + degree])    
+            comp.append(pitches[i: i + degree])  
+        get_prob(roots, degree)
+    return roots, comp
 
 
-def generate(input, n, roots):
+def generate(input, n, roots, degree):
     melody = input.copy()
-    for i in range(n):
-        note1 = melody[i]
-        note2 = melody[i+1]
-        node2 = roots[note1].children[note2]
-        dist = list(node2.children.keys())
-        weights = list([j.probability*100 for j in node2.children.values()])
+    i = 0
+    n = len(melody)
+    while n<degree:
+        seq = melody[i: i + n]
+        path = roots[seq[0]]
+        for j in range(len(seq)-1):
+            path = path.children[seq[j+1]]
+        dist = list(path.children.keys())
+        weights = list([j.probability*100 for j in path.children.values()])
+        pred_note = random.choices(dist, weights = weights, k = 1)[0]
+        melody.append(pred_note)
+        n += 1
+
+
+    for i in range(degree-1, n):
+        seq = melody[i: i + degree]
+        path = roots[seq[0]]
+        for j in range(len(seq)-1):
+            path = path.children[seq[j+1]]
+        dist = list(path.children.keys())
+        weights = list([j.probability*100 for j in path.children.values()])
         pred_note = random.choices(dist, weights = weights, k = 1)[0]
         melody.append(pred_note)
     return melody
