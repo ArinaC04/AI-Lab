@@ -7,7 +7,7 @@ package-mode = false
 
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 mido = "^1.3.3"
 pytest = "^8.3.3"
 
@@ -19,4 +19,7 @@ pytest-cov = "^6.0.0"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-
+[tool.coverage.run]
+include = [
+    "functions.py"
+    ]
