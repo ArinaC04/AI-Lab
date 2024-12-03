@@ -3,17 +3,11 @@
 ### **Code Coverage Summary**
 | Name               | Statements | Missed | Coverage |
 |--------------------|------------|--------|----------|
-| `functions.py`     | 106        | 78     | 26%      |
-| `main.py`          | 8          | 8      | 0%       |
-| `test_midi.py`     | 32         | 0      | 100%     |
-| `test_note.py`     | 17         | 0      | 100%     |
-| `user_interface.py`| 0          | 0      | 100%     |
-| **Total**          | 163        | 86     | 47%      |
+| `functions.py`     | 129        | 28     | 78%      |
+| **Total**          | 129        | 28     | 78%      |
 
 ### **Remarks**
-- **Current Coverage**: 47%
-- **Planned Improvements**: Additional tests will be added to improve coverage and validate edge cases further.
-
+- **Current Coverage**: 78%
 ---
 
 ## **Testing Overview**
