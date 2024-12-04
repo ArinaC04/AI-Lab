@@ -2,7 +2,6 @@ import functions
 import user_interface 
 
 
-#degree of markov - parameter
 
 input_notes = ["C4", "C5"]
 instrument = 48
