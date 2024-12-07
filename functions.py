@@ -129,9 +129,9 @@ def create_trie(degree):
 def generate(input, n, roots, degree):
     melody = input.copy()
     i = 0
-    n = len(melody)
-    while n<degree:
-        seq = melody[i: i + n]
+    l = len(melody)
+    while l<degree:
+        seq = melody[i: i + l]
         path = roots[seq[0]]
         for j in range(len(seq)-1):
             path = path.children[seq[j+1]]
@@ -139,7 +139,7 @@ def generate(input, n, roots, degree):
         weights = list([j.probability*100 for j in path.children.values()])
         pred_note = random.choices(dist, weights = weights, k = 1)[0]
         melody.append(pred_note)
-        n += 1
+        l += 1
 
 
     for i in range(degree-1, n):
