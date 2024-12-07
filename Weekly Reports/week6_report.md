@@ -7,8 +7,6 @@
   - Created a user interface for the code
 - **Testing**: 
   - Debugged the testing proccess
-- **Algorithm**:
-  - Added duration variation to the prediction
 
 ---
 
@@ -28,9 +26,11 @@
 ---
 
 ### **What’s Next?**
-
+  - Add data validation for the input
+  - Improve the look of the pop up window
+  - Added duration variation to the prediction
 
 ---
 
 ### **Time Spent**
-- **Hours**: Approximately 3 hours this week.
+- **Hours**: Approximately 4 hours this week.
