@@ -67,7 +67,7 @@ class Node:
         self.probability = 0
         self.freq = 1
         self.children = {}
-    
+
     def add_child(self, note):
         self.children[note] = Node(note)
 
@@ -139,8 +139,6 @@ def generate(input, n, roots, degree):
         pred_note = random.choices(dist, weights = weights, k = 1)[0]
         melody.append(pred_note)
         l += 1
-
-
     for i in range(n):
         seq = melody[i: i + degree]
         path = roots[seq[0]]
