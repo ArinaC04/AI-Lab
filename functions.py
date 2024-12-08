@@ -135,7 +135,7 @@ def generate(input, n, roots, degree):
         for j in range(l-1):
             path = path.children[melody[j+1]]
         dist = list(path.children.keys())
-        weights = list([j.probability*1000 for j in path.children.values()])
+        weights = list([j.probability*100 for j in path.children.values()])
         pred_note = random.choices(dist, weights = weights, k = 1)[0]
         melody.append(pred_note)
         l += 1
@@ -145,7 +145,7 @@ def generate(input, n, roots, degree):
         for j in range(len(seq)-1):
             path = path.children[seq[j+1]]
         dist = list(path.children.keys())
-        weights = list([j.probability*1000 for j in path.children.values()])
+        weights = list([j.probability*100 for j in path.children.values()])
         pred_note = random.choices(dist, weights = weights, k = 1)[0]
         melody.append(pred_note)
     return melody
