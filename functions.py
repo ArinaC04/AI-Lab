@@ -20,7 +20,7 @@ def midi(note):
             while notes[i]!=note[:-1]:
                 i+=1
             return (int(note[-1])-1) * 12 + i
-        elif len(note) in [3, 4] and note[:-2] in notes and note[2:] in ['10', '11', '#10', '#11']:
+        elif len(note) in [3, 4] and note[:-2] in notes and note[1:] in ['10', '11', '#10', '#11']:
             while notes[i]!=note[:-2]:
                 i+=1
             return (int(note[-2:])-1) * 12 + i
@@ -53,6 +53,7 @@ def pitch_to_midi(pitches, duration, instrument):
     midi_file.tracks.append(track)
     track.append(Message('program_change', program=instrument))
     for i in range(len(pitches)):
+        print(pitches[i])
         notes.append((midi(pitches[i]), duration[i]))
     for pitch, d in notes:
         track.append(Message('note_on', note=pitch, velocity=64, time=0)) 
@@ -120,29 +121,27 @@ def create_trie(degree):
             if pitches[i] not in roots:
                 roots[pitches[i]] = Node(pitches[i])
                 roots[pitches[i]].freq -= 1
-            roots[pitches[i]].new_notes(pitches[i + 1: i + degree])    
-            comp.append(pitches[i: i + degree])  
+            roots[pitches[i]].new_notes(pitches[i + 1: i + degree + 1])    
+            comp.append(pitches[i: i + degree + 1])  
         get_prob(roots, degree)
     return roots, comp
 
 
 def generate(input, n, roots, degree):
     melody = input.copy()
-    i = 0
     l = len(melody)
     while l<degree:
-        seq = melody[i: i + l]
-        path = roots[seq[0]]
-        for j in range(len(seq)-1):
-            path = path.children[seq[j+1]]
+        path = roots[melody[0]]
+        for j in range(l-1):
+            path = path.children[melody[j+1]]
         dist = list(path.children.keys())
-        weights = list([j.probability*100 for j in path.children.values()])
+        weights = list([j.probability*1000 for j in path.children.values()])
         pred_note = random.choices(dist, weights = weights, k = 1)[0]
         melody.append(pred_note)
         l += 1
 
 
-    for i in range(degree-1, n):
+    for i in range(n):
         seq = melody[i: i + degree]
         path = roots[seq[0]]
         for j in range(len(seq)-1):

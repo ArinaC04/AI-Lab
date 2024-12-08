@@ -3,8 +3,8 @@ from functions import midi
 
 class test_midi(unittest.TestCase):
     def test_case_1(self):
-        input_data = "C#1"
-        expected_result = 1
+        input_data = "C10"
+        expected_result = 108
         self.assertEqual(midi(input_data), expected_result)
 
     def test_case_2(self):
