@@ -126,9 +126,10 @@ def show_popup():
     # tkSnack.initializeSnack(popup)
     # snd = tkSnack.Sound()
     # snd.read("output.mid")
+    #snd.play(blocking=1)
     
 
-    play_button = Button(popup, text="Play", command=lambda: snd.play(blocking=1))
+    play_button = Button(popup, text="Play", command=lambda: play_file())
     play_button.pack(pady=5)
     
     stop_button = Button(popup, text="Stop", command=lambda: stop_file())
