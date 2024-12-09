@@ -4,6 +4,7 @@ import pygame
 from tkinter import Toplevel, messagebox, filedialog, Message, Label, Entry, Spinbox, Button, mainloop, Tk, Scrollbar, END, LEFT, RIGHT, BOTH, Listbox, Y
 import os
 
+#add actual functions, change padding and maybe colors, play button functionality
 
 def func(input_notes, instrument, degree):
     input_notes = input_notes.get()
@@ -133,46 +134,87 @@ def show_popup():
 
 
 pygame.mixer.init()
+from tkinter import Tk, Label, Entry, Spinbox, Button, Message, Toplevel, messagebox, font
+
+
 
 root = Tk()
-w = Label(root, text='Music generation using Markov Chains').grid(row=0)
+root.title("Music Generation with Markov Chains")
+root.geometry("500x400")
+root.configure(bg="lightblue")
 
-T1 = Message(root, text = 'Write here the starting notes for the melody. They should range from C1 to C12. Ex: C5, C6')
-T1.grid(row=2, columnspan=2, sticky="WE")
-T1.config(bg='lightgreen')
+header_font = font.Font(family="Helvetica", size=16, weight="bold")
+label_font = font.Font(family="Arial", size=12)
 
-T2 = Message(root, text = 'What instrument would you like to use?\n Recommended: 48')
-T2.grid(row=4, columnspan=1, sticky="WE")
-T2.config(bg='lightgreen')
+Label(
+    root, text="Music Generation using Markov Chains", font=header_font, bg="lightblue"
+).grid(row=0, column=0, columnspan=2, pady=(10, 20))
 
-T3 = Message(root, text = 'How many notes would you like for the model to take into consideration when generating music? Max 40')
-T3.grid(row=6, columnspan=2, sticky="WE")
-T3.config(bg='lightgreen')
+T1 = Message(
+    root,
+    text="Write here the starting notes for the melody. They should range from C1 to C12. Ex: C5, C6",
+    bg="lightgreen",
+    width=400,
+    font=label_font,
+)
+T1.grid(row=2, column=0, columnspan=2, sticky="WE", padx=10, pady=5)
 
-Label(root, text='Input notes').grid(row=1)
-Label(root, text='Instrument').grid(row=3)
-Label(root, text='Degree of Markov Chain').grid(row=5)
+T2 = Message(
+    root,
+    text="What instrument would you like to use?\nRecommended: 48",
+    bg="lightgreen",
+    width=400,
+    font=label_font,
+)
+T2.grid(row=4, column=0, columnspan=2, sticky="WE", padx=10, pady=5)
 
+T3 = Message(
+    root,
+    text="How many notes would you like for the model to take into consideration when generating music? Max 40",
+    bg="lightgreen",
+    width=400,
+    font=label_font,
+)
+T3.grid(row=6, column=0, columnspan=2, sticky="WE", padx=10, pady=5)
 
-input = Entry(root)
-instrument = Entry(root)
-degree = Spinbox(root, from_=0, to=40)
+Label(root, text="Input notes", font=label_font, bg="lightblue").grid(
+    row=1, column=0, padx=10, pady=5, sticky="E"
+)
+input_field = Entry(root, width=30)
+input_field.grid(row=1, column=1, padx=10, pady=5, sticky="W")
 
+Label(root, text="Instrument", font=label_font, bg="lightblue").grid(
+    row=3, column=0, padx=10, pady=5, sticky="E"
+)
+instrument_field = Entry(root, width=30)
+instrument_field.grid(row=3, column=1, padx=10, pady=5, sticky="W")
 
-input.grid(row=1, column=1)
-instrument.grid(row=3, column=1)
-degree.grid(row=5, column=1)
+Label(root, text="Degree of Markov Chain", font=label_font, bg="lightblue").grid(
+    row=5, column=0, padx=10, pady=5, sticky="E"
+)
+degree_field = Spinbox(root, from_=0, to=40, width=28)
+degree_field.grid(row=5, column=1, padx=10, pady=5, sticky="W")
 
-inst_button = Button(root, text="View Instruments", command=inst_list)
-inst_button.grid(row = 4, column = 1)
+# Buttons
+inst_button = Button(
+    root,
+    text="View Instruments",
+    command=inst_list,
+    bg="lightgray",
+    font=label_font,
+    relief="raised",
+)
+inst_button.grid(row=8, column=0, padx=10, pady=(10, 20), sticky="E")
 
+generate_button = Button(
+    root,
+    text="Generate",
+    command=lambda: func(input_field, instrument_field, degree_field),
+    bg="green",
+    fg="white",
+    font=label_font,
+    relief="raised",
+)
+generate_button.grid(row=8, column=1, padx=10, pady=(10, 20), sticky="W")
 
-button = Button(root, text='Generate', width=25, command=lambda: func(input, instrument, degree))
-button.grid(row = 7, columnspan=2, sticky="WE")
-
-
-mainloop()
-
-
-
-
+root.mainloop()
