@@ -3,8 +3,10 @@ import re
 import pygame
 from tkinter import Toplevel, messagebox, filedialog, Message, Label, Entry, Spinbox, Button, mainloop, Tk, Scrollbar, END, LEFT, RIGHT, BOTH, Listbox, Y
 import os
+import tkSnack
 
-#add actual functions, change padding and maybe colors, play button functionality
+
+#change padding and maybe colors, play button functionality
 
 def func(input_notes, instrument, degree):
     input_notes = input_notes.get()
@@ -90,11 +92,15 @@ def inst_list():
     close_button = Button(popup, text="Close", command=popup.destroy)
     close_button.pack(pady=10)
 
-def play():
-    pygame.mixer.music.load("output.mid")
-    pygame.mixer.music.play()
+def play_file():
+    try:
+        pygame.mixer.init()
+        pygame.mixer.music.load("output.mid")  
+        pygame.mixer.music.play()
+    except Exception as e:
+        print(f"Error playing MIDI: {e}")
 
-def stop():
+def stop_file():
     pygame.mixer.music.stop()
 
 def download_file():
@@ -116,10 +122,16 @@ def show_popup():
     
     Label(popup, text="What would you like to do?").pack(pady=10)
     
-    play_button = Button(popup, text="Play", command=lambda: play())
+
+    # tkSnack.initializeSnack(popup)
+    # snd = tkSnack.Sound()
+    # snd.read("output.mid")
+    
+
+    play_button = Button(popup, text="Play", command=lambda: snd.play(blocking=1))
     play_button.pack(pady=5)
     
-    stop_button = Button(popup, text="Stop", command=stop)
+    stop_button = Button(popup, text="Stop", command=lambda: stop_file())
     stop_button.pack(pady=5)
     
     download_button = Button(popup, text="Download", command=lambda: download_file())
