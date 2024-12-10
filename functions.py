@@ -53,7 +53,6 @@ def pitch_to_midi(pitches, duration, instrument):
     midi_file.tracks.append(track)
     track.append(Message('program_change', program=instrument))
     for i in range(len(pitches)):
-        print(pitches[i])
         notes.append((midi(pitches[i]), duration[i]))
     for pitch, d in notes:
         track.append(Message('note_on', note=pitch, velocity=64, time=0)) 

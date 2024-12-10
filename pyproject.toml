@@ -10,7 +10,7 @@ package-mode = false
 python = "^3.9"
 mido = "^1.3.3"
 pytest = "^8.3.3"
-pygame = "^2.6.1"
+rtmidi = "^2.5.0"
 
 [tool.poetry.group.dev.dependencies]
 coverage = "^7.6.8"

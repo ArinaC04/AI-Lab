@@ -1,12 +1,9 @@
 import functions
+import mido
 import re
-import pygame
-from tkinter import Toplevel, messagebox, filedialog, Message, Label, Entry, Spinbox, Button, mainloop, Tk, Scrollbar, END, LEFT, RIGHT, BOTH, Listbox, Y
+from tkinter import Toplevel, messagebox, filedialog, Message, Label, Entry, Spinbox, Button, Tk, font, Scrollbar, END, LEFT, RIGHT, BOTH, Listbox, Y
 import os
-import tkSnack
 
-
-#change padding and maybe colors, play button functionality
 
 def func(input_notes, instrument, degree):
     input_notes = input_notes.get()
@@ -36,7 +33,6 @@ def func(input_notes, instrument, degree):
     melody = functions.generate(input, 50, roots, degree)
     functions.pitch_to_midi(melody, [400]*len(melody), instrument)
     show_popup()
-
 
 def inst_list():
         
@@ -92,16 +88,12 @@ def inst_list():
     close_button = Button(popup, text="Close", command=popup.destroy)
     close_button.pack(pady=10)
 
-def play_file():
-    try:
-        pygame.mixer.init()
-        pygame.mixer.music.load("output.mid")  
-        pygame.mixer.music.play()
-    except Exception as e:
-        print(f"Error playing MIDI: {e}")
-
-def stop_file():
-    pygame.mixer.music.stop()
+def play_file(): 
+    midi = mido.MidiFile("output.mid")
+    port = mido.get_output_names()[0]
+    with mido.open_output(port) as output:
+        for message in midi.play():
+            output.send(message)
 
 def download_file():
     save_path = filedialog.asksaveasfilename(
@@ -123,17 +115,9 @@ def show_popup():
     Label(popup, text="What would you like to do?").pack(pady=10)
     
 
-    # tkSnack.initializeSnack(popup)
-    # snd = tkSnack.Sound()
-    # snd.read("output.mid")
-    #snd.play(blocking=1)
-    
-
     play_button = Button(popup, text="Play", command=lambda: play_file())
     play_button.pack(pady=5)
     
-    stop_button = Button(popup, text="Stop", command=lambda: stop_file())
-    stop_button.pack(pady=5)
     
     download_button = Button(popup, text="Download", command=lambda: download_file())
     download_button.pack(pady=5)
@@ -144,11 +128,6 @@ def show_popup():
     popup.transient(root)  
     popup.grab_set()       
     root.wait_window(popup) 
-
-
-pygame.mixer.init()
-from tkinter import Tk, Label, Entry, Spinbox, Button, Message, Toplevel, messagebox, font
-
 
 
 root = Tk()
