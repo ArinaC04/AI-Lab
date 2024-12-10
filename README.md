@@ -4,7 +4,7 @@
 3. Once it is there, open it and add a soundfile (https://github.com/urish/cinto/blob/master/media/FluidR3%20GM.sf2)
 4. Now you can close it
 5. Run the main.py file
-6. Listen to the generated melody or download it anywhere. FYI, a started melody cannot be stopped (believe me, I tried, but turns out that stopping it is harder that playing it) 
+6. Listen to the generated melody or download it anywhere. FYI, a started melody cannot be stopped (believe me, I tried, but turns out stopping is harder that playing it) 
 
 PS: If it gives an error about ports and doesn't play the music, run the following commands in a test file:
 import mido
