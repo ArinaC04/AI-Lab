@@ -4,7 +4,7 @@ import re
 from tkinter import Toplevel, messagebox, filedialog, Message, Label, Entry, Spinbox, Button, Tk, font, Scrollbar, END, LEFT, RIGHT, BOTH, Listbox, Y
 import os
 
-
+#function that takes the user input and generates the melody
 def func(input_notes, instrument, degree):
     input_notes = input_notes.get()
     instrument = instrument.get()
@@ -34,6 +34,7 @@ def func(input_notes, instrument, degree):
     functions.pitch_to_midi(melody, [400]*len(melody), instrument)
     show_popup()
 
+#pop up of the list of isntruments available in MIDI
 def inst_list():
         
     GM_INSTRUMENTS = [
@@ -107,6 +108,7 @@ def download_file():
         except Exception as e:
             messagebox.showerror("Error", f"Failed to save file: {e}")
 
+#the pop up shown after generation
 def show_popup():
     popup = Toplevel()
     popup.title("Output Options")
@@ -129,7 +131,7 @@ def show_popup():
     popup.grab_set()       
     root.wait_window(popup) 
 
-
+#base window
 root = Tk()
 root.title("Music Generation with Markov Chains")
 root.geometry("500x400")
@@ -138,6 +140,8 @@ root.configure(bg="lightblue")
 header_font = font.Font(family="Helvetica", size=16, weight="bold")
 label_font = font.Font(family="Arial", size=12)
 
+
+#input fields
 Label(
     root, text="Music Generation using Markov Chains", font=header_font, bg="lightblue"
 ).grid(row=0, column=0, columnspan=2, pady=(10, 20))
