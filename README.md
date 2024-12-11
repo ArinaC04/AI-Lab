@@ -1,5 +1,5 @@
 *This will still be edited*
-1. With poetry install the dependencies in the virtual engine
+1. With poetry install the dependencies in the virtual engine (poetry install)
 2. Run the main.py file
 3. Listen to the generated melody or download it anywhere. FYI, a started melody cannot be stopped (believe me, I tried, but turns out stopping is harder that playing it) 
 
