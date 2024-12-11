@@ -2,7 +2,7 @@ import random
 import os
 from mido import MidiFile, MidiTrack, Message
 
-
+#converting a midi number to a pitch note
 def note(midi_note):
     if isinstance(midi_note, int) and midi_note<128 and midi_note>0:
         notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
@@ -12,6 +12,7 @@ def note(midi_note):
     else:
         raise ValueError("Invalid MIDI number")
 
+#converting a pitch to a midi number
 def midi(note):
     notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
     if isinstance(note, str):
@@ -29,6 +30,7 @@ def midi(note):
     else:
         raise ValueError("Invalid note")
 
+#converting a midi file to a list of pitches
 def midi_to_pitch(file):
     try:
         midi_file = MidiFile(file)
@@ -46,6 +48,7 @@ def midi_to_pitch(file):
     except (OSError, IOError):
         raise ValueError("Not a MIDI file")
 
+#converting a list of pitches to a midi file
 def pitch_to_midi(pitches, duration, instrument):
     notes = []
     midi_file = MidiFile()
@@ -70,7 +73,7 @@ class Node:
     def add_child(self, note):
         self.children[note] = Node(note)
 
-    
+    #method to add new notes to the already existing trie
     def new_notes(self, notes):
         self.freq += 1
         path = self
@@ -80,7 +83,8 @@ class Node:
             else:
                 path.add_child(note)
             path = path.children[note]
-        
+
+#helper recursive function for calculating the probabilities
 def get_prob_recursive(path, degree, actual_degree):
     if actual_degree == degree:
         return 
@@ -88,12 +92,12 @@ def get_prob_recursive(path, degree, actual_degree):
         path.children[node].probability = path.children[node].freq/path.freq
         get_prob_recursive(path.children[node], degree, actual_degree + 1)
 
-
 def get_prob(roots, degree):
     for root in roots.values():
         path = root
         get_prob_recursive(path, degree, 0)
 
+#helper recursive function for printing the trie
 def print_trie_recursive(path, degree, actual_degree):
     if actual_degree == degree:
         return 
@@ -107,7 +111,6 @@ def print_trie(roots, degree):
         path = root
         print_trie_recursive(path, degree, 0)
         print("\n \n")   
-
 
 def create_trie(degree):
     directory = 'MIDI'
@@ -125,10 +128,10 @@ def create_trie(degree):
         get_prob(roots, degree)
     return roots, comp
 
-
 def generate(input, n, roots, degree):
     melody = input.copy()
     l = len(melody)
+    #generating notes in the beginning, when the input may be smaller than the degree
     while l<degree:
         path = roots[melody[0]]
         for j in range(l-1):
@@ -138,6 +141,7 @@ def generate(input, n, roots, degree):
         pred_note = random.choices(dist, weights = weights, k = 1)[0]
         melody.append(pred_note)
         l += 1
+    #generation part
     for i in range(n):
         seq = melody[i: i + degree]
         path = roots[seq[0]]
