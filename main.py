@@ -166,7 +166,7 @@ T2.grid(row=4, column=0, columnspan=2, sticky="WE", padx=10, pady=5)
 
 T3 = Message(
     root,
-    text="How many notes would you like for the model to take into consideration when generating music? Max 40",
+    text="How many notes would you like for the model to take into consideration when generating music? The melody is really nice with degree 5",
     bg="lightgreen",
     width=400,
     font=label_font,
