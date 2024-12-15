@@ -3,8 +3,8 @@
 ### **Code Coverage Summary**
 | Name               | Statements | Missed | Coverage |
 |--------------------|------------|--------|----------|
-| `functions.py`     | 129        | 28     | 78%      |
-| **Total**          | 129        | 28     | 78%      |
+| `functions.py`     | 130        | 28     | 78%      |
+| **Total**          | 130        | 28     | 78%      |
 
 ### **Remarks**
 - **Current Coverage**: 78%
@@ -38,4 +38,5 @@
    poetry run pytest
 
 2. **Run Coverage Report**:
-   poetry run coverage report
+   poetry run python -m coverage report -m
+   poetry run coverage report -m
