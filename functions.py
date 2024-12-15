@@ -55,10 +55,8 @@ def pitch_to_midi(pitches, duration, instrument):
     track = MidiTrack()
     midi_file.tracks.append(track)
     track.append(Message('program_change', program=instrument))
-    print(len(pitches))
     for i in range(len(pitches)):
         notes.append((midi(pitches[i]), duration[i]))
-        print(pitches[i], duration[i])
     for pitch, d in notes:
         track.append(Message('note_on', note=pitch, velocity=64, time=0)) 
         track.append(Message('note_off', note=pitch, velocity=64, time=d))  
@@ -104,15 +102,18 @@ def print_trie_recursive(path, degree, actual_degree):
     if actual_degree == degree:
         return 
     for node in path.children:
-        print("\t"*(actual_degree + 1), node, round(path.children[node].probability, 2))
-        print_trie_recursive(path.children[node], degree, actual_degree + 1)
+        with open("output.txt", "a") as f:
+            print("\t"*(actual_degree + 1), node, round(path.children[node].probability, 2), file=f)
+            print_trie_recursive(path.children[node], degree, actual_degree + 1)
 
 def print_trie(roots, degree):
     for root in roots.values():
-        print(root.note)
+        with open("output.txt", "a") as f:
+            print(root.note, file=f)
         path = root
         print_trie_recursive(path, degree, 0)
-        print("\n \n")   
+        with open("output.txt", "a") as f:
+            print("\n \n", file=f)   
 
 def create_trie(degree):
     directory = 'MIDI'

@@ -89,12 +89,14 @@ def inst_list():
     close_button = Button(popup, text="Close", command=popup.destroy)
     close_button.pack(pady=10)
 
+
 def play_file(): 
     midi = mido.MidiFile("output.mid")
     port = mido.get_output_names()[0]
     with mido.open_output(port) as output:
         for message in midi.play():
             output.send(message)
+
 
 def download_file():
     save_path = filedialog.asksaveasfilename(

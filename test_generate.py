@@ -5,7 +5,11 @@ class test_generate(unittest.TestCase):
     def test_case_1(self):
         degree = 4
         roots, comp = create_trie(degree)
-        melody = generate(["C4", "C5"], 50, roots, degree)
+        
+        with open("output.txt", "w") as f:
+            print("", file=f)  
+        print_trie(roots, degree)
+        melody = generate(["C#4", "C5"], 50, roots, degree)
         ok = True
         for i in range(len(melody)-degree):
             if melody[i: i + degree + 1] not in comp:
