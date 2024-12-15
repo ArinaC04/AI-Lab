@@ -30,11 +30,11 @@ def func(input_notes, instrument, degree, root):
         return
     degree = int(degree)
     roots, comp = functions.create_trie(degree)
-    melody, duration = functions.generate(input, 500, roots, degree)
+    melody, duration = functions.generate(input, 400, roots, degree)
     functions.pitch_to_midi(melody, [x for x in duration if x!=0], instrument)
     show_popup(root)
 
-#pop up of the list of isntruments available in MIDI
+#pop up of the list of instruments available in MIDI
 def inst_list():
         
     GM_INSTRUMENTS = [
