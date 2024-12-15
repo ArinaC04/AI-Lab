@@ -38,5 +38,6 @@
    poetry run pytest
 
 2. **Run Coverage Report**:
+   poetry run python -m coverage run -m unittest
+
    poetry run python -m coverage report -m
-   poetry run coverage report -m
