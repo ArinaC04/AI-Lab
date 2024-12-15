@@ -55,8 +55,10 @@ def pitch_to_midi(pitches, duration, instrument):
     track = MidiTrack()
     midi_file.tracks.append(track)
     track.append(Message('program_change', program=instrument))
+    print(len(pitches))
     for i in range(len(pitches)):
         notes.append((midi(pitches[i]), duration[i]))
+        print(pitches[i], duration[i])
     for pitch, d in notes:
         track.append(Message('note_on', note=pitch, velocity=64, time=0)) 
         track.append(Message('note_off', note=pitch, velocity=64, time=d))  
@@ -151,5 +153,6 @@ def generate(input, n, roots, degree):
         weights = list([j.probability*100 for j in path.children.values()])
         pred_note = random.choices(dist, weights = weights, k = 1)[0]
         melody.append(pred_note)
-    return melody
+        p, duration = midi_to_pitch('jackson_m.mid')
+    return melody, duration[322:]
 

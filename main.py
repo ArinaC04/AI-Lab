@@ -1,8 +1,6 @@
 from tkinter import Message, Label, Entry, Spinbox, Button, Tk, font
 import ui
 
-
-
 #base window
 root = Tk()
 root.title("Music Generation with Markov Chains")
@@ -11,7 +9,6 @@ root.configure(bg="lightblue")
 
 header_font = font.Font(family="Helvetica", size=16, weight="bold")
 label_font = font.Font(family="Arial", size=12)
-
 
 #input fields
 Label(
