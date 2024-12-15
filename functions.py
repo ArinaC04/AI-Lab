@@ -144,8 +144,12 @@ def generate(input, n, roots, degree):
         pred_note = random.choices(dist, weights = weights, k = 1)[0]
         melody.append(pred_note)
         l += 1
+    if l==degree:
+        s=0
+    else:
+        s=l-degree
     #generation part
-    for i in range(n):
+    for i in range(s, n):
         seq = melody[i: i + degree]
         path = roots[seq[0]]
         for j in range(len(seq)-1):

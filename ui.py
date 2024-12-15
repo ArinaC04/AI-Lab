@@ -30,8 +30,43 @@ def func(input_notes, instrument, degree, root):
         return
     degree = int(degree)
     roots, comp = functions.create_trie(degree)
-    melody, duration = functions.generate(input, 400, roots, degree)
-    functions.pitch_to_midi(melody, [x for x in duration if x!=0], instrument)
+
+
+
+    l = len(input)
+    if l<=degree:
+        s=0
+    else:
+        s=l-degree
+
+    for i in range(s, l):
+        if input[0] not in roots:
+            top = Toplevel()
+            top.title('Error')
+            t = Message(top, text = 'Wrong input. Try again')
+            t.grid(row=0)
+            t.config(bg='red')
+            top.mainloop()
+            return
+        path = roots[input[0]]  
+        for j in range(l-1):
+            if input[j+1] not in path.children:
+                top = Toplevel()
+                top.title('Error')
+                t = Message(top, text = 'Wrong input. Try again')
+                t.grid(row=0)
+                t.config(bg='red')
+                top.mainloop()
+                return
+            path = path.children[input[j+1]]
+
+
+    melody, duration = functions.generate(input, 50, roots, degree)
+    functions.pitch_to_midi(melody, [300]*len(melody), instrument)
+
+    melody, duration = functions.generate(input, 200, roots, degree)
+    functions.pitch_to_midi(melody, [x*2 for x in duration if x!=0], instrument)
+
     show_popup(root)
 
 #pop up of the list of instruments available in MIDI
