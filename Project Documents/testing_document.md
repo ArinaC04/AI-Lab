@@ -3,8 +3,8 @@
 ### **Code Coverage Summary**
 | Name               | Statements | Missed | Coverage |
 |--------------------|------------|--------|----------|
-| `functions.py`     | 129        | 28     | 78%      |
-| **Total**          | 129        | 28     | 78%      |
+| `functions.py`     | 131        | 1     | 99%      |
+| **Total**          | 131        | 1     | 99%      |
 
 ### **Remarks**
 - **Current Coverage**: 78%
@@ -35,7 +35,8 @@
 
 ### **How to Repeat the Tests**
 1. **Run Unit Tests**:
-   poetry run pytest
+      poetry run python -m coverage run -m unittest
 
 2. **Run Coverage Report**:
-   poetry run coverage report
+
+   poetry run python -m coverage report -m
