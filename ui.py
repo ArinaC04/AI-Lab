@@ -31,8 +31,6 @@ def func(input_notes, instrument, degree, root):
     degree = int(degree)
     roots, comp = functions.create_trie(degree)
 
-
-
     l = len(input)
     if l<=degree:
         s=0
@@ -64,8 +62,8 @@ def func(input_notes, instrument, degree, root):
     melody, duration = functions.generate(input, 50, roots, degree)
     functions.pitch_to_midi(melody, [300]*len(melody), instrument)
 
-    melody, duration = functions.generate(input, 200, roots, degree)
-    functions.pitch_to_midi(melody, [x*2 for x in duration if x!=0], instrument)
+    # melody, duration = functions.generate(input, 200, roots, degree)
+    # functions.pitch_to_midi(melody, [x*2 for x in duration if x!=0], instrument)
 
     show_popup(root)
 
