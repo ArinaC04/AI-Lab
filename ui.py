@@ -11,7 +11,7 @@ def func(input_notes, instrument, degree, root):
     degree = degree.get()
     pitch_pattern = r'[A-G][#]?\d+'
     input = re.findall(pitch_pattern, input_notes)
-    if input_notes == "" or input == "" or instrument == "" or degree =="":
+    if input_notes == "" or input == [] or instrument == "" or degree =="0":
         top = Toplevel()
         top.title('Error')
         t = Message(top, text = 'Wrong input. Try again')
