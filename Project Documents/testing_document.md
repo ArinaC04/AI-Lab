@@ -7,7 +7,7 @@
 | **Total**          | 131        | 1     | 99%      |
 
 ### **Remarks**
-- **Current Coverage**: 78%
+- **Current Coverage**: 99%
 ---
 
 ## **Testing Overview**
