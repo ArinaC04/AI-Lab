@@ -1,4 +1,6 @@
 *This will still be edited*
+Music Generation Program using Markov Chains
+
 1. With poetry install the dependencies in the virtual engine (poetry install)
 2. Run the main.py file
 3. Listen to the generated melody or download it anywhere. FYI, a started melody cannot be stopped (believe me, I tried, but turns out stopping is harder that playing it) 
@@ -14,4 +16,5 @@ import mido
 print(mido.get_output_names())
 
 There has to be one named something along the lines VirtualMidiSynth, copy it as a string
+
 Then in the main.py file, go to the play_file function and change the port variable to the copied string. Now run it again
