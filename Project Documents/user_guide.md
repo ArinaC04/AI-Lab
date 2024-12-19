@@ -21,6 +21,22 @@
    - Enjoy the generated melody or download it to your device.  
    - **Note:** Once a melody starts playing, it cannot be stopped. (Trust me, I tried—but stopping it turned out to be harder than playing it!)
 
+
+---
+
+## Testing
+
+To run the tests included, follow these steps:
+
+1. **Unit Tests**  
+   ```bash
+   poetry run python -m coverage run -m unittest
+   ```
+
+2. **Test coverage**  
+   ```bash
+   poetry run python -m coverage report -m
+   ```
 ---
 
 ## Troubleshooting
