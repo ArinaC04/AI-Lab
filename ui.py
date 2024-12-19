@@ -41,7 +41,7 @@ def func(input_notes, instrument, degree, root):
         if input[0] not in roots:
             top = Toplevel()
             top.title('Error')
-            t = Message(top, text = 'Wrong input. Try again')
+            t = Message(top, text = 'Sequence of notes not found. Change the input notes.')
             t.grid(row=0)
             t.config(bg='red')
             top.mainloop()
@@ -51,7 +51,7 @@ def func(input_notes, instrument, degree, root):
             if input[j+1] not in path.children:
                 top = Toplevel()
                 top.title('Error')
-                t = Message(top, text = 'Wrong input. Try again')
+                t = Message(top, text = 'Sequence of notes not found. Change the input notes.')
                 t.grid(row=0)
                 t.config(bg='red')
                 top.mainloop()
