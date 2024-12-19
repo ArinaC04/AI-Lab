@@ -35,8 +35,11 @@
 
 ### **How to Repeat the Tests**
 1. **Run Unit Tests**:
+   ```bash
       poetry run python -m coverage run -m unittest
+   ```
 
-2. **Run Coverage Report**:
-
+3. **Run Coverage Report**:
+    ```bash
    poetry run python -m coverage report -m
+    ```
