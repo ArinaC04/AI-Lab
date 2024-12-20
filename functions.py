@@ -160,4 +160,3 @@ def generate(input, n, roots, degree):
         melody.append(pred_note)
         p, duration = midi_to_pitch('jackson_m.mid')
     return melody, duration[322:]
-
