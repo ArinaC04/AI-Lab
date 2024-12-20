@@ -28,31 +28,46 @@
   - Uses the trie to create a sequence of notes based on input notes and the specified number of notes to consider.
 
 ---
+## Time and Space Complexities
 
-## **Time and Space Complexities**
+### Functions in `functions.py`
 
-### **Trie Construction**
-#### **Time Complexity**:
-- Let N be the total number of notes in all MIDI files and D the degree of the Markov model.
-- Each sequence of D+1 notes requires a traversal or insertion in the trie:
-  - **Worst case**: O(N*D)
-- Calculating probabilities involves a pass through the trie:
-  - **Worst case**: O(N)
-- **Overall**: O(N*D)
+#### `create_trie(degree)`
+- **Time Complexity**: 
+  - `O(n * d)`, where `n` is the total number of notes across all MIDI files, and `d` is the degree.
+- **Space Complexity**:
+  - `O(k)`, where `k` is the number of unique sequences of `d + 1` notes.
 
-#### **Space Complexity**:
-- The trie stores nodes for unique sequences of length D+1:
-  - **Worst case**: O(K*(D+1)), where K is the number of unique notes.
+#### `generate(input, n, roots, degree)`
+- **Time Complexity**: 
+  - `O(n * d)`, where `n` is the number of notes generated and `d` is the degree.
+- **Space Complexity**:
+  - `O(n)`, for storing the generated melody.
 
-### **Melody Generation**
-#### **Time Complexity**:
-- Generating M notes requires M trie lookups and random choices:
-  - Trie lookups: O(D) per note, or O(M*D) in total.
-  - Random selection involves O(L) for L child nodes.
-  - **Overall**: O(M*(D + L)).
+#### `midi_to_pitch(file)`
+- **Time Complexity**: 
+  - `O(m)`, where `m` is the number of events in the MIDI file.
+- **Space Complexity**:
+  - `O(p)`, where `p` is the number of unique pitch values.
 
-#### **Space Complexity**:
-- The melody sequence requires O(M) storage.
+#### `pitch_to_midi(pitches, duration, instrument)`
+- **Time Complexity**: 
+  - `O(n)`, where `n` is the number of pitches.
+- **Space Complexity**:
+  - `O(1)`, as it operates on the MIDI file directly.
+
+### GUI Interactions in `ui.py`
+
+- **Error Handling**: 
+  - Time Complexity: `O(1)` for input checks.
+  - Space Complexity: `O(1)`.
+- **Melody Generation**: Delegates to `functions.py` methods; see their complexities above.
+
+### Overall
+- **Time Complexity**: 
+  - Melody generation is the dominant factor: `O(n * d)`.
+- **Space Complexity**: 
+  - Dominated by trie storage: `O(k)`.
 
 ### **MIDI Conversion**
 #### **Time Complexity**:
