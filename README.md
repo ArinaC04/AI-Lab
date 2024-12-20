@@ -59,4 +59,4 @@ Handles user interactions:
 
 ## Usage
 
-You can find a detailed setup instructions in the user_guide.md file in folder Project Documents
+You can find detailed setup instructions in the user_guide.md file in folder Project Documents
